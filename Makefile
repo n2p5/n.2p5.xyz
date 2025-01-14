@@ -12,10 +12,15 @@ generate:
 build: generate
 	@go run .
 
-run: build
+serve: build
 	@cd $(DIST_DIR) && python -m http.server 8000
 
+# dev watches a set of files and if anything changes
+# it will re-run the application gen, build and serve processes
 dev:
 	@find . -type f \( \
-	-name '*.go' ! -name '*_templ.go' -o -name '*.templ' \) \
-	| entr -r sh -c 'make run'
+	-name '*.go' \
+	-o -name '*.toml' \
+	-o -name '*.templ' \) \
+	! -name '*_templ.go' \
+	| entr -r sh -c 'make serve'

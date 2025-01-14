@@ -3,7 +3,7 @@
 # exit on error
 set -e
 
-DIR=src
+DIR=dst
 BUCKET=s3://n.2p5.xyz
 DIST_ID=$N_2P5_XYZ_CDN_DIST_ID
 CACHE_ID=$(date +%s)

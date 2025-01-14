@@ -2,17 +2,20 @@ package main
 
 import (
 	"context"
+	"log"
 	"os"
+
+	"github.com/BurntSushi/toml"
 )
 
 func main() {
 	err := GenerateHome("data/home.toml", "dst/index.html")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 	err = GenerateMedia("dst/writing-speaking-and-press.html")
 	if err != nil {
-		panic(err)
+		log.Fatal(err)
 	}
 }
 
@@ -22,17 +25,8 @@ func GenerateHome(input, output string) error {
 		return err
 	}
 
-	d := HomeData{
-		Title: "Nathan Toups",
-		Description: `My name is Nathan Toups. I'm not convinced that I could (or should) try
-      to sum myself up in a few words, but I can certainly share a bit of
-      propaganda:`,
-		Items: []string{
-			`I co-host a podcast called 
-        <a href="https://bookoverflow.io/">Book Overflow</a>.`,
-		},
-	}
-
+	var d HomeData
+	toml.DecodeFile(input, &d)
 	return Home(d).Render(context.TODO(), f)
 }
 
@@ -41,17 +35,7 @@ func GenerateMedia(path string) error {
 	if err != nil {
 		return err
 	}
-
-	d := MediaData{
-		Title:       "Nathan Toups - Writing, Speaking, and Press",
-		Description: `Selected Writing, Speaking, and Press`,
-		Items: []MediaItem{
-			{
-				Title:   "Nathan Toups - Selected Writing, Speaking, and Press",
-				Details: `Blah`,
-			},
-		},
-	}
-
+	var d MediaData
+	toml.DecodeFile("data/media.toml", &d)
 	return Media(d).Render(context.TODO(), f)
 }

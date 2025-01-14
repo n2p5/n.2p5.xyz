@@ -31,7 +31,7 @@ type MediaItem struct {
 templ Media(d MediaData) {
     @pageTemplate(d.Title) {
         <h1>{d.Description}</h1>
-		<h1>-------------------------------------</h1></br></br>
+		<h1>-------------------------------------</h1>
         <ul>
             for _, item := range d.Items {
                 <li> 
