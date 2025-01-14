@@ -13,7 +13,7 @@ build: generate
 	@go run .
 
 run: build
-	@cd $(DIST_DIR) && python -m http.server 8000 
+	@cd $(DIST_DIR) && python -m http.server 8000
 
 dev:
 	@find . -type f \( \
