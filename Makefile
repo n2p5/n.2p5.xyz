@@ -3,7 +3,7 @@ DIST_DIR := dst
 
 .PHONY: generate build run dev
 
-deploy:
+deploy: generate
 	./scripts/deploy.sh
 
 generate:
