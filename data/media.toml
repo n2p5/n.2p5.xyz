@@ -1,6 +1,23 @@
 title = "Nathan Toups - Writing, Speaking, and Press"
 description = "Selected Writing, Speaking, and Press"
 
+
+[[items]]
+Title = "Book Overflow Podcast - Interview (March 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=3Vlk6hCWBw0\">John Ousterhout and Robert Martin Discuss Their Software Philosophies</a>"
+
+[[items]]
+Title = "Book Overflow Podcast - Interview (March 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=U3VM_0YcSL4\">Gergely Orosz (The Pragmatic Engineer) Reflects on The Software Engineer's Guidebook</a>"
+
+[[items]]
+Title = "Book Overflow Podcast - Interview (March 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=VKu3Dyyzzjg\">Carson Gross (Creator of HTMX) Reflects on Hypermedia Systems</a>"
+
+[[items]]
+Title = "Book Overflow Podcast - Interview (March 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=V_CsjBaZhZY\">Kent Beck Reflects on Tidy First?</a>"
+
 [[items]]
 Title = "Book Overflow Podcast - Interview (November 2024)"
 Details = "<a href=\"https://www.youtube.com/watch?v=VloimYuCxBs\">Brian Kernighan Reflects on Unix: A History and a Memoir</a>"
@@ -64,6 +81,18 @@ Details = "<a href=\"https://www.youtube.com/watch?v=_QQ7k5sn2-o\">Brian Kernigh
 [[items]]
 Title = "Book Overflow Podcast - Interview (July 2024)"
 Details = "<a href=\"https://www.youtube.com/watch?v=5V3Ty8Tf3t0\">Mark Richards Reflects on \"Fundamentals of Software Architecture\"</a>"
+
+[[items]]
+Title = "Functionally Imperative - Interview (June 2024)"
+Details = "<a href=\"https://www.youtube.com/watch?v=COLpIAsJSno\">Finding Your Own Path | A conversation with Thomas Burns</a>"
+
+[[items]]
+Title = "Functionally Imperative - Interview (May 2024)"
+Details = "<a href=\"https://www.youtube.com/watch?v=dcS8FjGaOws\">Mathematics and Creativity | A conversation with Henry Segerman</a>"
+
+[[items]]
+Title = "Functionally Imperative - Interview (February 2024)"
+Details = "<a href=\"https://www.youtube.com/watch?v=Qvh1-Dmav34\">Robust First | A conversation with Dave Ackley (T2 Tile Project)</a>"
 
 [[items]]
 Title = "13th Annual Peak Cyber Symposium - Speaker (September 2023)"
