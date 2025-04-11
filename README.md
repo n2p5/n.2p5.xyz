@@ -29,6 +29,8 @@ This project generates a personal website from TOML data files using Go's templa
 4. Output HTML files are written to the dst directory
 5. Files are deployed to AWS S3 with CloudFront for distribution
 
+To update content, access `data` and update the toml content.
+
 ## Development
 
 Prerequisites
