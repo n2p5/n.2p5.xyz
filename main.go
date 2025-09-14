@@ -10,17 +10,19 @@ import (
 )
 
 func main() {
-	err := Generate("data/home.toml", "dst/index.html", HomeData{}, Home)
+	err := generate("data/home.toml", "dst/index.html", HomeData{}, Home)
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = Generate("data/media.toml", "dst/writing-speaking-and-press.html", MediaData{}, Media)
+	err = generate("data/media.toml", "dst/writing-speaking-and-press.html", MediaData{}, Media)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func Generate[T any](input, output string, data T, component func(T) templ.Component) error {
+// generate reads the input TOML file into the provided data structure, uses the provided
+// component function to create a templ.Component, and renders it to the output file.
+func generate[T any](input, output string, data T, component func(T) templ.Component) error {
 	f, err := os.Create(output)
 	if err != nil {
 		return err
