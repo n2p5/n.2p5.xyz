@@ -6,36 +6,30 @@ import (
 	"os"
 
 	"github.com/BurntSushi/toml"
+	"github.com/a-h/templ"
 )
 
 func main() {
-	err := GenerateHome("data/home.toml", "dst/index.html")
+	err := Generate("data/home.toml", "dst/index.html", HomeData{}, Home)
 	if err != nil {
 		log.Fatal(err)
 	}
-	err = GenerateMedia("dst/writing-speaking-and-press.html")
+	err = Generate("data/media.toml", "dst/writing-speaking-and-press.html", MediaData{}, Media)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func GenerateHome(input, output string) error {
+func Generate[T any](input, output string, data T, component func(T) templ.Component) error {
 	f, err := os.Create(output)
 	if err != nil {
 		return err
 	}
+	defer f.Close()
 
-	var d HomeData
-	toml.DecodeFile(input, &d)
-	return Home(d).Render(context.TODO(), f)
-}
-
-func GenerateMedia(path string) error {
-	f, err := os.Create(path)
+	_, err = toml.DecodeFile(input, &data)
 	if err != nil {
 		return err
 	}
-	var d MediaData
-	toml.DecodeFile("data/media.toml", &d)
-	return Media(d).Render(context.TODO(), f)
+	return component(data).Render(context.Background(), f)
 }
