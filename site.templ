@@ -3,23 +3,30 @@ package main
 type HomeData struct {
     Title string `toml:"title"`
     Description string `toml:"description"`
+    MetaDescription string `toml:"meta_description"`
     Items []string `toml:"items"`
 }
 
 templ Home(d HomeData) {
-    @pageTemplate(d.Title) {
-        <p>{d.Description}</p>
-        <ul>
-            for _, item := range d.Items {
-                <li> @templ.Raw(item) </li>
-            }
-        </ul>
+    @pageTemplate(d.Title, d.MetaDescription) {
+        <section>
+            <h1 class="visually-hidden">{d.Title}</h1>
+            <p>{d.Description}</p>
+            <nav aria-label="Personal links">
+                <ul>
+                    for _, item := range d.Items {
+                        <li>@templ.Raw(item)</li>
+                    }
+                </ul>
+            </nav>
+        </section>
     }
 }
 
 type MediaData struct {
     Title string `toml:"title"`
     Description string `toml:"description"`
+    MetaDescription string `toml:"meta_description"`
     Items []MediaItem `toml:"items"`
 }
 
@@ -29,36 +36,39 @@ type MediaItem struct {
 }
 
 templ Media(d MediaData) {
-    @pageTemplate(d.Title) {
-        <h1>{d.Description}</h1>
-		<h1>-------------------------------------</h1>
-        <ul>
-            for _, item := range d.Items {
-                <li> 
-                    <h2>@templ.Raw(item.Title)</h2>
-                    <h3>@templ.Raw(item.Details)</h3>
-                </li>
-            }
-        </ul>
+    @pageTemplate(d.Title, d.MetaDescription) {
+        <article>
+            <h1>{d.Description}</h1>
+            <hr aria-hidden="true"/>
+            <section aria-label="Media appearances">
+                <ul>
+                    for _, item := range d.Items {
+                        <li>
+                            <h2>@templ.Raw(item.Title)</h2>
+                            <h3>@templ.Raw(item.Details)</h3>
+                        </li>
+                    }
+                </ul>
+            </section>
+        </article>
     }
 }
 
-templ head(title string) {
+templ head(title string, description string, iconHref templ.SafeURL) {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content={description}>
         <title>{title}</title>
-        <link
-            href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="
-            rel="icon" type="image/x-icon" />
+        <link href={iconHref} rel="icon" type="image/x-icon" />
         @style()
     </head>
 }
 
-templ pageTemplate(title string) {
+templ pageTemplate(title string, description string) {
     <!DOCTYPE html>
     <html lang="en">
-        @head(title)
+        @head(title, description, templ.SafeURL("data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAF0lEQVRIx2NgGAWjYBSMglEwCkbBSAcACBAAAeaR9cIAAAAASUVORK5CYII="))
         <body>
             <main>
                 { children... }
@@ -84,8 +94,27 @@ templ style() {
 
       h1, h2, h3, p {
         font-size: 14px;
+        font-weight: normal;
         padding: 0;
         margin: 0;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      hr {
+        border: none;
+        border-top: 1px solid #333;
+        margin: 20px 0;
       }
 
       p {
@@ -99,7 +128,6 @@ templ style() {
         margin-left: auto;
         max-width: 600px;
         min-width: 280px;
-        align-self: left;
       }
       ul {
         padding: 20px 0px 0px 20px;
