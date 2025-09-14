@@ -3,6 +3,18 @@ description = "Selected Writing, Speaking, and Press"
 
 
 [[items]]
+Title = "Book Overflow Podcast - Interview (August 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=IaFzQeLYMPU\">Jason Fried (37Signals, Basecamp, Hey) Reflects on ReWork</a>"
+
+[[items]]
+Title = "Book Overflow Podcast - Interview (July 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=AyMfesFdjjs\">Kirill Bobrov Reflects on Grokking Concurrency</a>"
+
+[[items]]
+Title = "Book Overflow Podcast - Interview (July 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=GardZmPCiKU\">Manuel Pais Reflects on Team Topologies</a>"
+
+[[items]]
 Title = "Book Overflow Podcast - Interview (March 2025)"
 Details = "<a href=\"https://www.youtube.com/watch?v=3Vlk6hCWBw0\">John Ousterhout and Robert Martin Discuss Their Software Philosophies</a>"
 
