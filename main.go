@@ -10,28 +10,33 @@ import (
 )
 
 func main() {
-	err := generate("data/home.toml", "dst/index.html", HomeData{}, Home)
-	if err != nil {
-		log.Fatal(err)
+	g := []func() error{
+		generator("data/home.toml", "dst/index.html", HomeData{}, Home),
+		generator("data/media.toml", "dst/writing-speaking-and-press.html", MediaData{}, Media),
 	}
-	err = generate("data/media.toml", "dst/writing-speaking-and-press.html", MediaData{}, Media)
-	if err != nil {
-		log.Fatal(err)
+
+	for _, gen := range g {
+		if err := gen(); err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 
-// generate reads the input TOML file into the provided data structure, uses the provided
-// component function to create a templ.Component, and renders it to the output file.
-func generate[T any](input, output string, data T, component func(T) templ.Component) error {
-	f, err := os.Create(output)
-	if err != nil {
-		return err
-	}
-	defer f.Close()
+// generator is a generic function that takes an input TOML file, an output file path,
+// a data structure to decode the TOML into, and a templ.Component function that
+// generates the HTML. It returns a function that performs the generation when called.
+func generator[T any](input, output string, data T, component func(T) templ.Component) func() error {
+	return func() error {
+		f, err := os.Create(output)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
 
-	_, err = toml.DecodeFile(input, &data)
-	if err != nil {
-		return err
+		_, err = toml.DecodeFile(input, &data)
+		if err != nil {
+			return err
+		}
+		return component(data).Render(context.Background(), f)
 	}
-	return component(data).Render(context.Background(), f)
 }
