@@ -1,6 +1,6 @@
 module github.com/n2p5/n.2p5.xyz
 
-go 1.25.1
+go 1.25.2
 
 require (
 	github.com/BurntSushi/toml v1.5.0

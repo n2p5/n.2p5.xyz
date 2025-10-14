@@ -6,6 +6,7 @@ description = """My name is Nathan Toups. I'm not convinced that I could (or sho
     propaganda:"""
 
 items = [
+    "I own and operate <a href=\"https://rojoroboto.com/\">rojoroboto</a>.",
     "I co-host a podcast called <a href=\"https://bookoverflow.io/\">Book Overflow</a>.",
     "I run a project called <a href=\"https://functionallyimperative.com/\">Functionally Imperative</a>.",
     "I hack on <a href=\"https://unlicense.org/\">public domain</a> software and share it on <a href=\"https://github.com/n2p5\">github</a>.",
