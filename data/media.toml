@@ -4,8 +4,12 @@ description = "Selected Writing, Speaking, and Press"
 
 
 [[items]]
+Title = "Book Overflow Podcast - Interview (October 2025)"
+Details = "<a href=\"https://www.youtube.com/watch?v=hFdCMV6_5sg\">Patrick Debois Reflects on The DevOps Handbook</a>"
+
+[[items]]
 Title = "Book Overflow Podcast - Interview (August 2025)"
-Details = "<a href=\"https://www.youtube.com/watch?v=IaFzQeLYMPU\">Jason Fried (37Signals, Basecamp, Hey) Reflects on ReWork</a>"
+Details = "<a href=\"https://www.youtube.com/watch?v=IaFzQeLYMPU\">Jason Fried Reflects on ReWork</a>"
 
 [[items]]
 Title = "Book Overflow Podcast - Interview (July 2025)"
