@@ -1,42 +1,77 @@
 package main
 
 import (
-	"context"
+	"encoding/json"
+	"html/template"
 	"log"
 	"os"
-
-	"github.com/BurntSushi/toml"
-	"github.com/a-h/templ"
 )
 
-func main() {
-	g := []func() error{
-		generator("data/home.toml", "dst/index.html", HomeData{}, Home),
-		generator("data/media.toml", "dst/writing-speaking-and-press.html", MediaData{}, Media),
-	}
+type HomeData struct {
+	Title           string   `json:"title"`
+	Description     string   `json:"description"`
+	MetaDescription string   `json:"meta_description"`
+	Items           []string `json:"items"`
+}
 
-	for _, gen := range g {
-		if err := gen(); err != nil {
-			log.Fatal(err)
-		}
+type MediaData struct {
+	Title           string      `json:"title"`
+	Description     string      `json:"description"`
+	MetaDescription string      `json:"meta_description"`
+	Items           []MediaItem `json:"items"`
+}
+
+type MediaItem struct {
+	Title   string `json:"title"`
+	Details string `json:"details"`
+}
+
+func main() {
+	if err := generate("data/home.json", "dst/index.html", "home.gohtml", &HomeData{}); err != nil {
+		log.Fatal(err)
+	}
+	if err := generate("data/media.json", "dst/writing-speaking-and-press.html", "media.gohtml", &MediaData{}); err != nil {
+		log.Fatal(err)
 	}
 }
 
-// generator is a generic function that takes an input TOML file, an output file path,
-// a data structure to decode the TOML into, and a templ.Component function that
-// generates the HTML. It returns a function that performs the generation when called.
-func generator[T any](input, output string, data T, component func(T) templ.Component) func() error {
-	return func() error {
-		f, err := os.Create(output)
-		if err != nil {
-			return err
-		}
-		defer f.Close()
-
-		_, err = toml.DecodeFile(input, &data)
-		if err != nil {
-			return err
-		}
-		return component(data).Render(context.Background(), f)
+// generate loads JSON data, parses a template, and writes the result to an HTML file.
+func generate[T any](inputPath, outputPath, templatePath string, data T) error {
+	// Load JSON data
+	inFile, err := os.Open(inputPath)
+	if err != nil {
+		return err
 	}
+	defer inFile.Close()
+
+	if err := json.NewDecoder(inFile).Decode(&data); err != nil {
+		return err
+	}
+
+
+	// Parse templates with custom function for raw HTML
+	funcMap := template.FuncMap{
+		"raw": func(s string) template.HTML {
+			return template.HTML(s)
+		},
+	}
+
+	// Parse only the templates needed for this page to avoid name conflicts
+	tmpl, err := template.New("").Funcs(funcMap).ParseFiles(
+		"templates/style.css",
+		"templates/page.gohtml",
+		"templates/"+templatePath)
+	if err != nil {
+		return err
+	}
+
+	// Create output file
+	outFile, err := os.Create(outputPath)
+	if err != nil {
+		return err
+	}
+	defer outFile.Close()
+
+	// Execute template
+	return tmpl.ExecuteTemplate(outFile, templatePath, data)
 }

@@ -1,0 +1,20 @@
+{{define "media.gohtml"}}
+{{template "page" .}}
+{{end}}
+
+{{define "page-content"}}
+<article>
+  <h1>{{.Description}}</h1>
+  <hr aria-hidden="true">
+  <section aria-label="Media appearances">
+    <ul>
+      {{range .Items}}
+      <li>
+        <h2>{{raw .Title}}</h2>
+        <h3>{{raw .Details}}</h3>
+      </li>
+      {{end}}
+    </ul>
+  </section>
+</article>
+{{end}}

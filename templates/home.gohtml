@@ -1,0 +1,17 @@
+{{define "home.gohtml"}}
+{{template "page" .}}
+{{end}}
+
+{{define "page-content"}}
+<section>
+  <h1 class="visually-hidden">{{.Title}}</h1>
+  <p>{{.Description}}</p>
+  <nav aria-label="Personal links">
+    <ul>
+      {{range .Items}}
+      <li>{{raw .}}</li>
+      {{end}}
+    </ul>
+  </nav>
+</section>
+{{end}}
